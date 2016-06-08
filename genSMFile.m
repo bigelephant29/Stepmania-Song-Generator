@@ -13,6 +13,14 @@ function [] = genSMFile( smFileName, targetMP3, targetBPM, difficulty, pattern, 
         return
     end
     
+    validPattern = checkPattern(pattern);
+    
+    if validPattern == 0
+        return
+    end
+    
+    pattern = optimizePattern(pattern);
+    
     % open source .mp3 file
     mp3Info = audioinfo(targetMP3);
     [~, mp3Filename, mp3Ext] = fileparts(mp3Info.Filename);
