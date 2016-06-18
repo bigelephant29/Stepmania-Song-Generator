@@ -55,7 +55,7 @@ function [] = genSMFile( smFileName, targetMP3, bpms, difficulty, pattern, offse
     % #CDTITLE:
     
     % #DISPLAYBPM:
-    fprintf(fileID, '#DISPLAYBPM:%.3f:%.3f;\n', targetBPM, targetBPM);
+    fprintf(fileID, '#DISPLAYBPM:%.3f:%.3f;\n', min(cell2mat(bpms)), max(cell2mat(bpms)));
     
     % #OFFSET:
     fprintf(fileID, '#OFFSET:%.3f;\n', offset);
