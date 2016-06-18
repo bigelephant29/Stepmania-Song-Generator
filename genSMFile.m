@@ -68,13 +68,13 @@ function [] = genSMFile( smFileName, targetMP3, bpms, difficulty, pattern, offse
     
     % #BPMS:
     fprintf(fileID, '#BPMS:');
-    for i = 1 : length(targetBPM)
+    for i = 1 : length(bpms)
         if i > 1
             fprintf(fileID, ',');
         end
-        fprintf(fileID, '%d=%d', i-1, bpms{i});
+        fprintf(fileID, '%d=%.3f', i-1, bpms{i});
     end
-    fprintf(fileid, ';\n');
+    fprintf(fileID, ';\n');
     
     % #STOPS:
     
