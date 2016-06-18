@@ -4,7 +4,8 @@ function bpm = genBpm (cBeat)
 
     bpm = array of bpm of every beat
 %}
-    bpm = num2cell( zeros(1, length(cBeat) - 1));
+    bpm = num2cell( zeros(1, length(cBeat)));
+    bpm{1} = 60. / cBeat(1);
     for i = 2:length(cBeat)
         bpm{i-1} = 60. / (cBeat(i) - cBeat(i - 1));
     end
