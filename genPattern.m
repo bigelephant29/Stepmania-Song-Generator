@@ -1,3 +1,4 @@
+function pattern = genPattern (au, segment)
 %{
     pattern = genPattern (segment, bpm)
     segment, a vertor of wav, segmented by measure.
@@ -12,12 +13,32 @@
         3: hold tail
     
 %}
-function pattern = genPattern (segment, bpm)
     % don't change these variable !!
-    LEFT = 1000; UP = 100; DOWN = 10; RIGHT = 1;
+    NODE = [1000, 100, 10, 1];
+    %LEFT = 1000; UP = 100; DOWN = 10; RIGHT = 1;
     %============================
-    
+    fs = au.fs;
+    tmpau.fs = fs;
+    pattern = cell(1, length(segment));
     for i = 1:length(segment)
-        pattern{i} = [UP, DOWN, LEFT, RIGHT];
+        tmpau.signal = segment{i};
+        onset = wave2onset(tmpau, 0);
+        minRa = 0;
+        minErr = realmax('single');
+        if ~isempty(onset)
+            for j = 32:-1:3
+                tmp = findErr (fs*4/j, onset);
+                if (tmp < minErr)
+                    minErr = tmp;
+                    minRa = j;
+                end
+            end
+        end
+        point = int32(onset./minRa);
+        node = randi(4, 1, minRa);
+        pattern{i} = num2cell( zeros(int32(fs*4/minRa)) );
+        for k = 1:length(point)
+            pattern{i}{point(k)} = NODE (node(k));
+        end
     end
 end

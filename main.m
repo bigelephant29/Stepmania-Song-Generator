@@ -4,7 +4,9 @@ function [ ] = main( filepath )
     
     [cBeat, au, bpm, beatPos] = beatTrack(inputMP3);
     
-    au.segment = sliceSegment(au);
+    segment = sliceSegment(au);
+    pattern = genPattern (au, segment);
+    
     
     % gen pattern
     
