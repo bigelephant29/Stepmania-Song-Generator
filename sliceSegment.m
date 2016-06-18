@@ -1,4 +1,4 @@
-function segment = sliceSegment (au)
+function [segment, offset] = sliceSegment (au)
     cBeat = au.cBeat;
     fs = au.fs;
     segment = cell(1, floor(length(cBeat) / 4));
@@ -15,4 +15,9 @@ function segment = sliceSegment (au)
         segment{i} = au.signal(lbeat : en);
         lbeat = en + 1;
     end
+    b0 = 60 / cBeat(1);
+    b = 60 / (cBeat(2) - cBeat(1));
+    pre = int32(fs / b / 60 - fs / b0 / 60);
+    segment{1} = [ones(1, pre)./1000, segment{1}];
+    offset = cBeat(2) - 2*cBeat(1);
 end

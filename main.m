@@ -6,7 +6,7 @@ function [ ] = main( filepath )
     
     bpm = genBpm (cBeat);
     
-    segment = sliceSegment(au);
+    [segment, offset] = sliceSegment(au);
     pattern = genPattern (au, segment);
     
     
@@ -15,7 +15,7 @@ function [ ] = main( filepath )
     % pattern visualization
     
     % gen .sm file
-    genSMFile('test.sm', filepath, bpm, 6, pattern, 0, 0, 10);
+    genSMFile('test.sm', filepath, bpm, 6, pattern, offset, 0, 10);
 
 end
 
