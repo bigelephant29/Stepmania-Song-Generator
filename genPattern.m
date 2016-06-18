@@ -34,10 +34,13 @@ function pattern = genPattern (au, segment)
                 end
             end
         end
-        point = int32(onset./minRa);
+        point = int32(onset./ (fs*4/minRa));
         node = randi(4, 1, minRa);
-        pattern{i} = num2cell( zeros(int32(fs*4/minRa)) );
+        pattern{i} = num2cell( zeros(minRa) );
         for k = 1:length(point)
+            if point(k) == 0
+                continue
+            end
             pattern{i}{point(k)} = NODE (node(k));
         end
     end
