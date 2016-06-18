@@ -15,9 +15,7 @@ function [segment, offset] = sliceSegment (au)
         segment{i} = au.signal(lbeat : en);
         lbeat = en + 1;
     end
-    b0 = 60 / cBeat(1);
-    b = 60 / (cBeat(2) - cBeat(1));
-    pre = int32(fs / b / 60 - fs / b0 / 60);
+    pre = int32(fs *(cBeat(2) - 2*cBeat(1)));
     segment{1} = [ones(1, pre)./1000, segment{1}];
     offset = cBeat(2) - 2*cBeat(1);
 end
