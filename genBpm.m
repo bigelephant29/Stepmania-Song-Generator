@@ -7,6 +7,6 @@ function bpm = genBpm (cBeat)
     bpm = num2cell( zeros(1, length(cBeat)));
     bpm{1} = 60. / cBeat(1);
     for i = 2:length(cBeat)
-        bpm{i-1} = 60. / (cBeat(i) - cBeat(i - 1));
+        bpm{i} = 60. / (cBeat(i) - cBeat(i - 1));
     end
 end
