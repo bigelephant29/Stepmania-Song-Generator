@@ -1,9 +1,9 @@
 function segment = sliceSegment (au)
     cBeat = au.cBeat;
     fs = au.fs;
-    segment = cell(1, length(cBeat) / 4);
+    segment = cell(1, floor(length(cBeat) / 4));
     lbeat = 1;
-    for i = 1:length(cBeat) / 4
+    for i = 1:floor(length(cBeat) / 4)
         en = int32(cBeat(i*4) * fs);
         if (en > length(au.signal))
             en = length(au.signal);
