@@ -16,6 +16,6 @@ function [segment, offset] = sliceSegment (au)
         lbeat = en + 1;
     end
     pre = int32(fs *(cBeat(2) - 2*cBeat(1)));
-    segment{1} = [ones(1, pre)./1000, segment{1}];
+    segment{1} = cat(1, transpose(ones(1, pre)./1000), segment{1});
     offset = cBeat(2) - 2*cBeat(1);
 end
