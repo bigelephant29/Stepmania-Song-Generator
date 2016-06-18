@@ -27,15 +27,15 @@ function pattern = genPattern (au, segment)
         minErr = realmax('single');
         if ~isempty(onset)
             for j = 32:-1:3
-                tmp = findErr (fs*4/j, onset);
+                tmp = findErr (length(segment{i})/j, onset);
                 if (tmp < minErr)
                     minErr = tmp;
                     minRa = j;
                 end
             end
         end
-        point = int32(onset./ (fs*4/minRa));
-        node = randi(4, 1, minRa);
+        point = int32(onset./ (length(segment{i})/minRa));
+        node = randi(1, 1, minRa);
         pattern{i} = num2cell( zeros(1, minRa) );
         for k = 1:length(point)
             if point(k) == 0
@@ -43,5 +43,6 @@ function pattern = genPattern (au, segment)
             end
             pattern{i}{point(k)} = NODE (node(k));
         end
+        pattern{i}{1} = pattern{i}{1} + 1;
     end
 end
