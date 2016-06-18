@@ -2,7 +2,7 @@ function segment = sliceSegment (au)
     cBeat = au.cBeat;
     fs = au.fs;
     segment = cell(1, floor(length(cBeat) / 4));
-    lbeat = 1;
+    lbeat = cBeat(1);
     for i = 1:floor(length(cBeat) / 4)
         en = int32(cBeat(i*4) * fs);
         if (en > length(au.signal))
