@@ -1,4 +1,4 @@
-function [] = genSMFile( smFileName, targetMP3, targetBPM, difficulty, pattern, offset, sampleStart, sampleLength )
+function [] = genSMFile( smFileName, targetMP3, bpms, difficulty, pattern, offset, sampleStart, sampleLength )
     
     % configuration
     PROJECTNAME='Stepmania-Song-Generator';
@@ -67,7 +67,14 @@ function [] = genSMFile( smFileName, targetMP3, targetBPM, difficulty, pattern, 
     fprintf(fileID, '#SAMPLELENGTH:%.3f;\n', sampleLength);
     
     % #BPMS:
-    fprintf(fileID, '#BPMS:0=%.3f;\n', targetBPM);
+    fprintf(fileID, '#BPMS:');
+    for i = 1 : length(targetBPM)
+        if i > 1
+            fprintf(fileID, ',');
+        end
+        fprintf(fileID, '%d=%d', i-1, bpms{i});
+    end
+    fprintf(fileid, ';\n');
     
     % #STOPS:
     
