@@ -20,9 +20,11 @@ function pattern = genPattern (au, segment)
     fs = au.fs;
     tmpau.fs = fs;
     pattern = cell(1, length(segment));
+    last = -1;
     for i = 1:length(segment)
         tmpau.signal = segment{i};
-        onset = wave2onset(tmpau, 0);
+        onset = wave2onset(tmpau, 1);
+        pause;
         minRa = 0;
         minErr = realmax('single');
         if ~isempty(onset)
@@ -35,14 +37,18 @@ function pattern = genPattern (au, segment)
             end
         end
         point = int32(onset./ (length(segment{i})/minRa));
-        node = randi(1, 1, minRa);
+        node = randi(4, 1, minRa);
         pattern{i} = num2cell( zeros(1, minRa) );
         for k = 1:length(point)
             if point(k) == 0
                 continue
             end
+            while node(k) == last
+                node(k) = randi(4, 1);
+            end
             pattern{i}{point(k)} = NODE (node(k));
+            last = node(k);
         end
-        pattern{i}{1} = pattern{i}{1} + 1;
+        % pattern{i}{1} = pattern{i}{1} + 1;
     end
 end
